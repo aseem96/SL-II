@@ -1,0 +1,59 @@
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/DAA/STRASSEN$ g++ s.cpp  -std=c++11
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/DAA/STRASSEN$ ./a.out
+Enter dimensions of matrix : 3
+
+Adjusted dimension : 4 Offset : 1
+Enter matrix 1:
+
+enter element of row index 0 column index 0:1
+
+enter element of row index 0 column index 1:1
+
+enter element of row index 0 column index 2:1
+
+enter element of row index 1 column index 0:1
+
+enter element of row index 1 column index 1:1
+
+enter element of row index 1 column index 2:1
+
+enter element of row index 2 column index 0:1
+
+enter element of row index 2 column index 1:1
+
+enter element of row index 2 column index 2:1
+
+For matrix 2:
+
+enter element of row index 0 column index 0:2
+
+enter element of row index 0 column index 1:2
+
+enter element of row index 0 column index 2:2
+
+enter element of row index 1 column index 0:2
+
+enter element of row index 1 column index 1:2
+
+enter element of row index 1 column index 2:2
+
+enter element of row index 2 column index 0:2
+
+enter element of row index 2 column index 1:2
+
+enter element of row index 2 column index 2:2
+  1  1  1
+  1  1  1
+  1  1  1
+
+  2  2  2
+  2  2  2
+  2  2  2
+
+Result:
+  6  6  6
+  6  6  6
+  6  6  6
+
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/DAA/STRASSEN$ 
+

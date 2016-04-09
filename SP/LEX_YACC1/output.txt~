@@ -1,0 +1,17 @@
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/LEX_YACC1$ gcc -o t lex.yy.c y.tab.c
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/LEX_YACC1$ ./t
+
+Calculator
+4+2
+6
+9+8
+17
+9*7
+63
+9/3
+3
+4%2
+0
+5-3
+2
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/LEX_YACC1$

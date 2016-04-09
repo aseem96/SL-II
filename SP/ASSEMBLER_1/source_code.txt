@@ -1,0 +1,18 @@
+start 200
+read m
+mover breg , two
+movem breg , data
+here : mult breg , data
+mover creg , data
+sub creg , two
+movem creg , data
+comp creg , m
+bc le , here
+movem breg , output 
+print output
+stop
+m ds 1
+output ds 1
+two dc '1'
+data ds 1
+end

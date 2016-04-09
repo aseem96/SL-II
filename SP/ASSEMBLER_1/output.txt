@@ -1,0 +1,54 @@
+aseem@aseem-Inspiron-5523:~$ g++ assembler.cpp
+aseem@aseem-Inspiron-5523:~$ ./a.out
+
+OUTPUT OF PASS I :
+
+200 ad , 1 - c , 200
+200 is , 9 - s , 0
+201 is , 4 2 s , 1
+202 is , 5 2 s , 2
+203 is , 3 2 s , 2
+204 is , 4 3 s , 2
+205 is , 2 3 s , 1
+206 is , 5 3 s , 2
+207 is , 6 3 s , 0
+208 is , 7 8 s , 3
+209 is , 5 2 s , 4
+210 is , 10 - s , 4
+211 is , 0 
+212 dl , 2 c , 1
+213 dl , 2 c , 1
+214 dl , 1 c , '1'
+215 dl , 2 c , 1
+216 ad , 2 
+
+SYMBOL TABLE :
+
+
+NO.	SYMBOL	ADDRESS
+0.	m		212
+1.	two		214
+2.	data	215
+3.	here	203
+4.	output	213
+
+OUTPUT OF PASS II :
+
++200 
++200 9 - 212
++201 4 2 214
++202 5 2 215
++203 3 2 215
++204 4 3 215
++205 2 3 214
++206 5 3 215
++207 6 3 212
++208 7 8 203
++209 5 2 213
++210 10 - 213
++211 0 0 0
++212 
++213 
++214 
++215 
+

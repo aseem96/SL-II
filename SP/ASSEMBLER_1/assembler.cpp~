@@ -1,0 +1,267 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <cstdlib>
+
+using namespace std;
+
+struct format {
+	string mnemonic, ic;
+	int code,no;
+};
+
+struct res {
+	int i,j;
+};
+
+struct sym {
+	string s;
+	int add;
+};
+
+format table[26][5];
+sym symtab[10];
+int bucket[26],s,l,l2;
+string pass1[30], pass2[30];
+
+void init() {
+	string line, token;
+	int j,num;
+	ifstream fp("optab.txt");
+	if(fp.is_open()) {
+		while(!fp.eof()) {	
+			getline(fp,line);
+			j = (int)line[0]-97;
+			if(j < 0)
+				break;
+			istringstream iss(line);
+			iss >> token;
+			table[j][bucket[j]].mnemonic = token;
+			iss >> token;
+			table[j][bucket[j]].ic = token;
+			iss >> num;
+			table[j][bucket[j]].code = num;
+			iss >> num;
+			table[j][bucket[j]].no = num;
+			bucket[j]++;
+		}
+		fp.close();
+	}
+}
+
+void print_table() {
+	for(int i = 0;i < 26;i++) {
+		for(int j = 0;j < bucket[i];j++) {
+			cout << "\nValue at " << i << " " << j << ":";
+			cout << table[i][j].code << " " << table[i][j].ic << " " << table[i][j].mnemonic;
+		}
+	}
+}
+
+res search_op(string s) {
+	res r;
+	r.i = s[0]-97;
+	for(int i = 0;i < bucket[r.i];i++)
+		if(table[r.i][i].mnemonic.compare(s) == 0) {	
+			r.j = i;
+			return r;
+		}
+	r.i = r.j = -1;
+	return r;
+}
+
+int search_sym(string str) {
+	for(int i = 0;i < s;i++)
+		if(str.compare(symtab[i].s) == 0)
+			return i;
+	return -1;
+}
+		
+void add_sym(string str) {
+	symtab[s++].s = str;
+}
+		
+char isreg(string s) {
+	if(s.compare("areg")==0)
+		return '1';
+	if(s.compare("breg")==0)
+		return '2';
+	if(s.compare("creg")==0)
+		return '3';
+	if(s.compare("dreg")==0)
+		return '4';
+	if(s.compare("gt")==0)
+		return '5';
+	if(s.compare("gte")==0)
+		return '6';
+	if(s.compare("lt")==0)
+		return '7';
+	if(s.compare("le")==0)
+		return '8';
+	return '0';
+}
+
+void pass_I() {	
+	int lc = 0,itoken;
+	res r;
+	string line,token;
+	ifstream fp("source.txt");
+	while(!fp.eof()) {
+		getline(fp,line,'\n');
+		istringstream iss(line);
+		iss >> token;
+		if(token.compare("start") == 0) {	
+			iss >> itoken;
+			lc = itoken;
+			ostringstream op;
+			op << itoken;
+			pass1[l++] = op.str()+" ad , 1 - c , "+op.str();
+			continue;
+		}
+		r = search_op(token);
+		if(r.i == -1) {
+			int pos = search_sym(token);
+			if(pos == -1)
+				add_sym(token);
+			else {	
+				iss >> token;
+				if(token.compare(":") == 0) {
+					cout << "Symbol redefined at line " << l+1;
+					exit(0);
+				}
+				r = search_op(token);
+				format f = table[r.i][r.j];
+				if(f.ic.compare("dl") == 0) {	
+					symtab[pos].add = lc;
+					ostringstream o1;
+					o1 << lc;
+					o1 << " " << f.ic << " , ";
+					o1 << f.code << " ";
+					iss >> token;
+					o1 << "c , " << token;
+					pass1[l++] = o1.str();
+					lc++;
+					continue;
+				}
+			}
+			iss >> token;
+			if(token.compare(":") == 0) {	
+				iss >> token;
+				symtab[s-1].add = lc;
+			}
+		}
+		r = search_op(token);
+		if(r.i != -1) {
+			format f = table[r.i][r.j];
+			ostringstream o1,o2,o3;
+			o1 << lc;
+			lc++;
+			o2 << f.code;
+			pass1[l] = o1.str()+" "+f.ic+" , "+o2.str()+" ";
+			iss >> token;
+			if(f.no==0) {
+				l++;
+				continue;
+			}
+			if(f.no == 1) {
+				if(isreg(token) != '0')
+					pass1[l] += isreg(token);
+				else {
+					int pos = search_sym(token);
+					if(pos == -1)
+						add_sym(token);
+					o3 << search_sym(token);
+					pass1[l++]+="- s , "+o3.str();
+				}
+			}
+			if(f.no == 2) {
+				if(isreg(token) != '0')
+					pass1[l] += isreg(token);
+				else {
+					cout<<"invalid register or format at line "<<l+1;
+					exit(0);
+				}
+				iss >> token;
+				iss >> token;
+				int pos = search_sym(token);
+				if(pos == -1)
+					add_sym(token);
+				o3 << search_sym(token);
+					pass1[l++]+=" s , "+o3.str();
+			}
+		}
+	}
+}
+		
+void op_pass1() {	
+	ofstream file("pass1.txt");
+	for(int i = 0;i < l;i++){	
+		cout << pass1[i] << endl;
+		file << pass1[i] << endl;
+	}
+	file.close();
+}
+		
+void print_symtab() {	
+	cout<<"\nNO.\tSYMBOL\tADDRESS\n";
+	for(int i = 0;i < s;i++)
+		cout << i << ".\t" << symtab[i].s << "\t" << symtab[i].add << "\n";
+}
+
+void pass_II() {
+	string token;
+	int no;
+	for(int i = 0;i < l;i++) {
+		istringstream iss(pass1[i]);
+		iss >> no;
+		iss >> token;
+		if(token.compare("is") != 0) {	
+			ostringstream o1;
+			o1 << "+" << no << " ";
+			pass2[l2++] = o1.str();
+			continue;
+		}
+		else {	
+			ostringstream o1;
+			o1 << "+" << no << " ";
+			iss >> token;
+			iss >> token;
+			o1 << token << " ";
+			iss >> token;
+			o1 << token << " ";
+			iss >> token;
+			iss >> token;
+			iss >> no;
+			int d = symtab[no].add;
+			o1 << d;
+			pass2[l2++] = o1.str();
+		}
+	}
+}
+		
+void  op_pass_II() {	
+	ofstream file("pass2.txt");
+	for(int i = 0;i < l2-1;i++) {	
+		cout << pass2[i] << endl;
+		file << pass2[i] << endl;
+	}
+	file.close();
+}
+
+int main(void) {
+	s = l = l2 = 0;
+	for(int i = 0;i < 26;i++)
+		bucket[i] = 0;
+	init();
+	pass_I();
+	cout<<"\nOUTPUT OF PASS I :\n\n";
+	op_pass1();
+	cout<<"\nSYMBOL TABLE :\n\n";
+	print_symtab();
+	pass_II();
+	cout<<"\nOUTPUT OF PASS II :\n\n";
+	op_pass_II();
+}
+
+

@@ -1,0 +1,11 @@
+start 200
+mover areg , ='5'
+movem areg , ='2'
+mover areg , ='2'
+mover creg , ='3'
+add creg , ='1'
+ltorg
+sub areg , ='1'
+mult creg , ='5'
+stop
+end

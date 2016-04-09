@@ -1,0 +1,5 @@
+start 200
+here : add areg breg
+a ds 2
+b dc '3'
+end

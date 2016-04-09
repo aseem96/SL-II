@@ -1,0 +1,17 @@
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/LEX_YACC2$ flex ite.l
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/LEX_YACC2$ bison ite.y
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/LEX_YACC2$ gcc -o p ite.tab.c -ll -ly
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/LEX_YACC2$ /p
+bash: /p: No such file or directory
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/LEX_YACC2$ ./p
+Enter the expression : if(k+8) then k=18;else c=s;
+t0 = k + 8
+t1 = not t0
+if t1 goto L1
+k = 18
+goto L2
+L1: 
+c = s
+L2: 
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/LEX_YACC2$ 
+

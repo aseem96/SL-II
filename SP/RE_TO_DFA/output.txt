@@ -1,0 +1,51 @@
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/RE_TO_DFA$ g++ re_dfa.cpp 
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/RE_TO_DFA$ ./a.out
+Enter postfix expression : ab|*a.b.b.
+Postfix expression entered : ab|*a.b.b.
+
+
+INORDER 
+
+Node	Position	Nullable	Fpos		Lpos
+a			1		0		1 			1 
+|			0		0		1 2 		1 2 
+b			2		0		2 			2 
+*			0		1		1 2 		1 2 
+.			0		0		1 2 3 		3 
+a			3		0		3 			3 
+.			0		0		1 2 3 		4 
+b			4		0		4 			4 
+.			0		0		1 2 3 		5 
+b			5		0		5 			5 
+.			0		0		1 2 3 		6 
+#			6		0		6 			6 
+
+
+FOLLOWPOS TABLE
+
+Position	Node	Followpos
+1		a	1 2 3 
+2		b	1 2 3 
+3		a	4 
+4		b	5 
+5		b	6 
+6		#	
+
+
+STATES
+
+A: 1 2 3 
+B: 1 2 3 4 
+C: 1 2 3 5 
+D: 1 2 3 6 
+
+DFA TRANSITION TABLE 
+
+ 	a	b
+
+A	B	A	
+B	B	C	
+C	B	D	
+D	B	A	
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/SP/RE_TO_DFA$ 
+

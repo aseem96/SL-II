@@ -1,0 +1,36 @@
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/DAA/FLOYD_WARSHALL$ g++ floyd_warshall.cpp 
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/DAA/FLOYD_WARSHALL$ ./a.out
+ENTER NUMBER OF VERTICES : 5   
+ENTER DISTANCE MATRIX (999 for no edge or infinite) : 
+999 3 4 8 999
+2 6 7 999 5
+3 1 999 999 999
+2 4 9 999 999
+999 999 6 7 2
+
+THE INITIAL CLOSURE MATRIX IS : 
+   0   1   1   1   0
+   1   1   1   0   1
+   1   1   0   0   0
+   1   1   1   0   0
+   0   0   1   1   1
+THE DISTANCE MATRIX IS : 
+ 999   3   4   8 999
+   2   6   7 999   5
+   3   1 999 999 999
+   2   4   9 999 999
+ 999 999   6   7   2
+THE TRANSITIVE CLOSURE MATRIX IS : 
+   1   1   1   1   1
+   1   1   1   1   1
+   1   1   1   1   1
+   1   1   1   1   1
+   1   1   1   1   1
+THE SHORTEST DISTANCE MATRIX IS : 
+   5   3   4   8   8
+   2   5   6  10   5
+   3   1   7  11   6
+   2   4   6  10   9
+   9   7   6   7   2
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/DAA/FLOYD_WARSHALL$ 
+

@@ -1,0 +1,43 @@
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/DAA/NQUEEN$ gcc nqueen.c 
+aseem@aseem-Inspiron-5523:~/Desktop/SL-II/DAA/NQUEEN$ ./a.out
+Enter the number of Queens
+6
+
+
+Solution #1:
+-	Q	-	-	-	-	
+-	-	-	Q	-	-	
+-	-	-	-	-	Q	
+Q	-	-	-	-	-	
+-	-	Q	-	-	-	
+-	-	-	-	Q	-	
+
+
+Solution #2:
+-	-	Q	-	-	-	
+-	-	-	-	-	Q	
+-	Q	-	-	-	-	
+-	-	-	-	Q	-	
+Q	-	-	-	-	-	
+-	-	-	Q	-	-	
+
+
+Solution #3:
+-	-	-	Q	-	-	
+Q	-	-	-	-	-	
+-	-	-	-	Q	-	
+-	Q	-	-	-	-	
+-	-	-	-	-	Q	
+-	-	Q	-	-	-	
+
+
+Solution #4:
+-	-	-	-	Q	-	
+-	-	Q	-	-	-	
+Q	-	-	-	-	-	
+-	-	-	-	-	Q	
+-	-	-	Q	-	-	
+-	Q	-	-	-	-	
+
+Total solutions=4aseem@aseem-Inspiron-5523:~/Desktop/SL-II/DAA/NQUEEN$ 
+
